@@ -1,31 +1,26 @@
 
 import './App.css';
-
-const IndiviualTopic = () => {
-  return (
-    <div className='IndiviualTopic'>
-    <h3>Topic name</h3>
-    <p> text description text description text description </p>
-    </div>
-  )
-}
-
-const TopicContainer = () => {
-  return (
-    <div className='TopicContainer'>
-    <h2>List of Topics</h2>
-    <p>this contains topics</p>
-    <IndiviualTopic />
-    </div>
-  )
-}
+import React from 'react';
+import Topic from './page/singleTopicPage';
+import {
+  BrowserRouter as Router, 
+  Routes, 
+  Route,
+} from 'react-router-dom';
+import HomePage from './page/homePage.js';
+import {SignInPage} from './page/signInPage.js';
 
 function App() {
   return (
-    <div className="App">
-      <h1>hello world</h1>
-      <TopicContainer />
-    </div>
+    <Router>
+      <div className="App">
+        <Routes>
+          <Route path='/' element={<SignInPage/>}/>
+          <Route path='/home' element={<HomePage/>}/>
+          <Route path='/topic/:id' element={<Topic authed={true}/>} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
