@@ -11,7 +11,7 @@ import {
 } from '../queries/fetchQueries.js'
 import EditContainer from "./topicEditContainer";
 import TopicNameAuthor from "./topicNameAuthor";
-import FadeIn from "react-fade-in/lib/FadeIn.js";
+
 
 const IndiviualTopic = (props) => {
     const navigate = useNavigate();
@@ -59,15 +59,13 @@ const IndiviualTopic = (props) => {
               }}>edit topic</button>
           </div>
       </div>}
-      <FadeIn>
         <EditContainer 
-          edit={edit} 
-          currTopic={currTopic} 
-          setCurrTopic={setCurrTopic}
-          topicId={data.topicId}
-          topicRefetch={props.topicRefetch}
-          setEdit={setEdit}/>
-        </FadeIn>
+        edit={edit} 
+        currTopic={currTopic} 
+        setCurrTopic={setCurrTopic}
+        topicId={data.topicId}
+        topicRefetch={props.topicRefetch}
+        setEdit={setEdit}/>
       </>
     )
 }
