@@ -12,7 +12,7 @@ import {SignInPage} from './page/signInPage.js';
 import io from 'socket.io-client';
 import {SERVER_URL} from './util/variables.js'
 console.log(SERVER_URL);
-const socket = io.connect('http://localhost:8000');
+const socket = io.connect(SERVER_URL);
 
 function App() {
   return (
