@@ -14,8 +14,10 @@ import TopicNameAuthor from "./topicNameAuthor";
 
 
 const IndiviualTopic = (props) => {
+    
     const navigate = useNavigate();
     const data = props.data;
+    const socket = props.socket;
     const [edit, setEdit] = useState(false);
     const [currTopic, setCurrTopic] = useState(data.topic);
     const userId = 1; // GET FROM COOKIES
@@ -30,8 +32,10 @@ const IndiviualTopic = (props) => {
               {!data.liked && <button onClick={() => {
                 insertLikesTopicCommentReply(data.topicId, 'topic')
                 .then(res=> {
-                  if (res.status === 200) props.topicRefetch();
-                  else alert(res.message);
+                  if (res.status === 200) {
+                    props.topicRefetch();
+                    props.socket.emit('topicUpdated');
+                  } else alert(res.message);
                 })
               }}> {data.numLikes} likes</button>}
 
@@ -40,8 +44,10 @@ const IndiviualTopic = (props) => {
                   //// unlike topic
                   deleteLikesTopicCommentReply(data.topicId, 'topic')
                   .then(res=> {
-                    if (res.status === 200)props.topicRefetch();
-                    else alert(res.message);
+                    if (res.status === 200) {
+                      props.topicRefetch();
+                      props.socket.emit('topicUpdated');
+                    } else alert(res.message);
                   })
               }}>{data.numLikes} likes</button>}
 
@@ -49,8 +55,14 @@ const IndiviualTopic = (props) => {
               <button onClick={()=> {
                 removeTopic(data.topicId, userId).then((res)=> {
                   if(res.status === 200) {
-                    props.topicRefetch();
-                    if (props.isCommentPage) navigate(-1);
+                    //props.topicRefetch()
+                    if (props.isCommentPage) {
+                      props.allTopicRefetch();
+                      navigate(-1);
+                      props.socket.emit('navigateBack')
+                    }
+                    props.socket.emit('topicUpdated');
+
                   } else alert(res.message);
                 })
               }}>delete</button>
@@ -65,6 +77,7 @@ const IndiviualTopic = (props) => {
         setCurrTopic={setCurrTopic}
         topicId={data.topicId}
         topicRefetch={props.topicRefetch}
+        socket={socket}
         setEdit={setEdit}/>
       </>
     )
@@ -72,7 +85,9 @@ const IndiviualTopic = (props) => {
 IndiviualTopic.propTypes = {
   data: PropTypes.object,
   topicRefetch: PropTypes.func,
-  isCommentPage: PropTypes.bool
+  isCommentPage: PropTypes.bool,
+  socket: PropTypes.object,
+  allTopicRefetch: PropTypes.func
 }
 
 export default IndiviualTopic;

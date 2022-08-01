@@ -9,6 +9,10 @@ import {
 } from 'react-router-dom';
 import HomePage from './page/homePage.js';
 import {SignInPage} from './page/signInPage.js';
+import io from 'socket.io-client';
+import {SERVER_URL} from './util/variables.js'
+console.log(SERVER_URL);
+const socket = io.connect('http://localhost:8000');
 
 function App() {
   return (
@@ -16,8 +20,8 @@ function App() {
       <div className="App">
         <Routes>
           <Route path='/' element={<SignInPage/>}/>
-          <Route path='/home' element={<HomePage/>}/>
-          <Route path='/topic/:id' element={<Topic authed={true}/>} />
+          <Route path='/home' element={<HomePage socket={socket}/>}/>
+          <Route path='/topic/:id' element={<Topic socket={socket} authed={true}/>} />
         </Routes>
       </div>
     </Router>

@@ -8,7 +8,13 @@
   background-image: linear-gradient(#355866, #84d5f5, #355866);
 }
 
-
+.searchLogBtn {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 3px;
+}
 
 .TopicContainer, .commentContainer {
   width: 50%;

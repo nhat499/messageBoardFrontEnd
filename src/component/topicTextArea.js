@@ -20,8 +20,10 @@ function TopicTextAreaComponent (props) {
                         if (newTopic) {
                             insertTopic(newTopic, userId)
                             .then((res)=> {
-                                if (res.status === 200) props.refetch();
-                                else alert(res.message);
+                                if (res.status === 200) {
+                                    props.refetch();
+                                    props.socket.emit('topicUpdated');
+                                }else alert(res.message);
                             })
                         }
                         props.setAddNewTopic(false);
@@ -36,7 +38,8 @@ function TopicTextAreaComponent (props) {
 TopicTextAreaComponent.propTypes = {
     isNotHidden: PropTypes.bool,
     setAddNewTopic: PropTypes.func,
-    refetch: PropTypes.func
+    refetch: PropTypes.func,
+    socket: PropTypes.object
 }
 
 export default TopicTextAreaComponent;

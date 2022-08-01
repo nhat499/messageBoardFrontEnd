@@ -7,7 +7,7 @@ function TopicNameAuthor(props) {
     const data = props.data;
     return (
       <div className="TopicNameAuthor">
-        <Link  style={{textDecoration: 'none'}} to={`/topic/` + data.topicId}>
+        <Link style={{textDecoration: 'none'}} to={`/topic/` + data.topicId}>
           <p className='topic'>{data.topicId}. <strong>{data.topic}</strong></p>
         </Link>
        <div>

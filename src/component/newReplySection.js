@@ -14,6 +14,8 @@ function NewReplySection(props) {
                     if(res.status === 200) {
                         props.refetch();
                         props.commentRefetch();
+                        props.socket.emit('replyUpdated');
+                        props.socket.emit('commentUpdated');
                     } else alert(res.message);
                 });
                 props.setaddNewReply(false);
@@ -33,7 +35,8 @@ NewReplySection.propTypes = {
     refetch: PropTypes.func,
     setaddNewReply: PropTypes.func,
     setreply: PropTypes.func,
-    commentRefetch: PropTypes.func
+    commentRefetch: PropTypes.func,
+    socket: PropTypes.object
 }
 
 export default NewReplySection;

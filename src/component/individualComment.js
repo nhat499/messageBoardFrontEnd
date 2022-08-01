@@ -39,7 +39,10 @@ function IndividualComment(props) {
                 {(data.liked === 0) &&<button onClick={() => {
                     insertLikesTopicCommentReply(data.commentId, 'comment')
                     .then(res => {
-                        if(res.status === 200) props.commentRefetch();
+                        if(res.status === 200) {
+                            props.commentRefetch();
+                            props.socket.emit('commentUpdated');
+                        }
                         else alert(res.message);
                     })
                 }}>{data.numLikes} likes</button>}
@@ -47,14 +50,17 @@ function IndividualComment(props) {
                 {(data.liked === 1) && <button className="unlikeBtn" onClick={() => {
                     deleteLikesTopicCommentReply(data.commentId, 'comment')
                     .then(res => {
-                        if (res.status === 200) props.commentRefetch();
+                        if (res.status === 200) {
+                            props.commentRefetch();
+                            props.socket.emit('commentUpdated');
+                        }
                         else alert(res.message);
                     })
                 }}>{data.numLikes} likes</button>}
 
                 {editComment && 
                 <button onClick={()=> {
-                    submitUpdateComment(comment, data.commentId, props.commentRefetch, setEditComment);}}>submit
+                    submitUpdateComment(comment, data.commentId, props.commentRefetch, props.socket,setEditComment);}}>submit
                 </button>}
 
                 {editComment && <button onClick={() => {
@@ -77,13 +83,17 @@ function IndividualComment(props) {
                 {!editComment && 
                 <button onClick={()=> {
                     deleteComment(data.commentId, userId).then((res)=> {
-                        if (res.status === 200) props.commentRefetch();
+                        if (res.status === 200) {
+                            props.commentRefetch();
+                            props.socket.emit('commentUpdated');
+                        }
                         else alert(res.message);
                     });}}>delete
                 </button>}
             </div>
         </div>
             {viewReply && <ReplyContainer 
+                socket = {props.socket}
                 commentRefetch={props.commentRefetch} 
                 numReply={data.numReply} 
                 commentId={data.commentId}/>}
@@ -94,13 +104,16 @@ function IndividualComment(props) {
 
 IndividualComment.propTypes = {
     data: PropTypes.object,
-    commentRefetch: PropTypes.func
+    commentRefetch: PropTypes.func,
+    socket: PropTypes.object
 }
 
-function submitUpdateComment(comment, commentId, setEditComment, commentRefetch ) {
+function submitUpdateComment(comment, commentId, setEditComment, socket, commentRefetch ) {
     updateComment(comment, commentId).then((res) => {
-        if (res.status === 200) commentRefetch();
-        else alert(res.message)
+        if (res.status === 200) {
+            commentRefetch();
+            socket.emit('commentUpdated');
+        } else alert(res.message)
         setEditComment(false);
     })
 }

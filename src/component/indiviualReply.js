@@ -26,24 +26,32 @@ function IndividualReply(props) {
                         {(data.liked === 0) && <button onClick={() => {
                             insertLikesTopicCommentReply(data.replyId, 'reply')
                             .then(res=> {
-                                if (res.status === 200) props.refetch();
-                                else alert(res.message);
+                                if (res.status === 200) {
+                                    props.refetch();
+                                    props.socket.emit('replyUpdated');
+                                }else alert(res.message);
                             })
                         }}>{data.numLikes} likes</button>}
 
                         {(data.liked === 1) && <button className="unlikeBtn" onClick={()=> {
                             deleteLikesTopicCommentReply(data.replyId, 'reply')
                             .then(res=> {
-                                if (res.status === 200) props.refetch();
-                                else alert(res.message);
+                                if (res.status === 200) {
+                                    props.refetch();
+                                    props.socket.emit('replyUpdated');
+                                } else alert(res.message);
                             })
                         }}>{data.numLikes} likes</button>}
 
                         <button onClick={()=> setEdit(true)}>edit</button>
                         <button onClick={()=>{
                             removeReply(data.replyId, userId).then((res) => {                              
-                                if (res.status === 200) props.refetch()
-                                else alert(res.message);
+                                if (res.status === 200) { 
+                                    props.refetch();
+                                    props.commentRefetch();
+                                    props.socket.emit('commentUpdated');
+                                    props.socket.emit('replyUpdated');
+                                } else alert(res.message);
                             });   
                         }}>delete</button>
                     </div>}
@@ -53,8 +61,10 @@ function IndividualReply(props) {
             <textarea value={reply} onChange={(event) => setReply(event.target.value)}></textarea>
             <button onClick={()=> {
                 updateReply(reply, data.replyId).then((res)=> {
-                    if (res.status === 200) props.refetch();
-                    alert(res.message);
+                    if (res.status === 200) {
+                        props.refetch();
+                        props.socket.emit('replyUpdate');
+                    } else alert(res.message);
                     setEdit(false);
                 })
             }}>submit</button>
@@ -67,7 +77,9 @@ function IndividualReply(props) {
 
 IndividualReply.propTypes = {
     data: PropTypes.object,
-    refetch: PropTypes.func
+    refetch: PropTypes.func,
+    commentRefetch: PropTypes.func,
+    socket: PropTypes.object
 }
 
 export default IndividualReply;

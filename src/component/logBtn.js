@@ -6,14 +6,18 @@ import PropTypes from 'prop-types';
 function LogBtn(props) {
     return (
         <div className="logBtn">
-            {props.isSignedIn && <LogOut className="logOIBtn"/>}
-            {!props.isSignedIn && <LogIn className="logOIBtn"/>}
+            {props.user && 
+            <>
+                <p>Hello {props.user.firstName}!</p>
+                <LogOut className="logOIBtn"/>
+            </>}
+            {!props.user && <LogIn className="logOIBtn"/>}
         </div>
     )
 }
 
 LogBtn.propTypes = {
-    isSignedIn: PropTypes.object
+    user: PropTypes.object
 }
 
 export default LogBtn;

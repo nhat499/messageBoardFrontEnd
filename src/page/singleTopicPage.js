@@ -3,7 +3,7 @@ import '../App.css';
 import { useParams } from 'react-router-dom';
 import {useQuery } from 'react-query'
 import {
-    // fetchListOfTopics,
+    fetchListOfTopics,
     fetchSingleTopic,
     fetchListOfComments,
     // getUserInfo
@@ -15,6 +15,8 @@ import {
 } from '../component/newCommentSection.js'
 import FadeIn from 'react-fade-in';
 import LogBtn from "../component/logBtn.js";
+import PropTypes from 'prop-types';
+import {useNavigate} from 'react-router-dom'
 
 
 // function Topic() {
@@ -69,16 +71,32 @@ import LogBtn from "../component/logBtn.js";
 //     }
 // }
 
-function Topic() {
-    // const listOfTopic = useQuery(['allTopics'], () => fetchListOfTopics());
+function Topic(props) {
+    const navigate = useNavigate();
+    const listOfTopic = useQuery(['allTopics'], () => fetchListOfTopics(), {enabled:false});
+    const socket = props.socket;
     const {id} = useParams();
+    console.log(id);
     const singleTopic = useQuery(['singleTopic'], () => fetchSingleTopic(id))
     
     const {data, isLoading, error, refetch} = useQuery(['allComments'], 
-    () => fetchListOfComments(id), {enabled: false});
+    () => fetchListOfComments(id));
 
     const [addNewComment, setAddNewComment] = useState(false);
     // const [isSignedIn, setIsSignedIn] = useState(false);
+    socket.on('commentUpdated', () => {
+        console.log("updating comment");
+        refetch();
+    })
+
+    socket.on('navigateBack', () => {
+        navigate('/home');
+    })
+
+    socket.on('singleTopicRefetch', () =>{
+        singleTopic.refetch();
+    })
+
     useEffect(() => {
         refetch();
         // getUserInfo().then(res => {
@@ -96,8 +114,10 @@ function Topic() {
         return (
             data && theTopic  && <div className="commentContainer">
                 
-                <LogBtn isSignedIn={singleTopic.data.user}/>
+                <LogBtn user={singleTopic.data.user}/>
                 <CommentHeader topicRefetch={singleTopic.refetch}
+                    allTopicRefetch={listOfTopic.refetch}
+                    socket={socket}
                     addNewComment={addNewComment} 
                     theTopic={theTopic} 
                     setAddNewComment={setAddNewComment}/>
@@ -108,16 +128,21 @@ function Topic() {
                     id={id} 
                     topicRefetch = {singleTopic.refetch}
                     refetch={refetch} 
+                    socket={socket}
                     setAddNewComment={setAddNewComment}/>
                 <FadeIn>
                     {(data.length === 0) ? "there are no comment" : data.map((eachData) => (
-                        <IndividualComment key={eachData.commentId} commentRefetch={refetch} data={eachData}/>
+                        <IndividualComment key={eachData.commentId} socket={socket} commentRefetch={refetch} data={eachData}/>
                     ))}
                 </FadeIn>
             </div>
             
         )
     }
+}
+
+Topic.propTypes = {
+    socket: PropTypes.object
 }
 
 export default Topic;

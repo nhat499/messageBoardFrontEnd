@@ -7,8 +7,10 @@ async function getUserInfo() {
         .catch(err => console.log(err));
 }
 
-async function fetchListOfTopics() {
-    const res = await fetch(`${SERVER_URL}/get/topics`, 
+async function fetchListOfTopics(search) {
+    console.log(search);
+    if (!search) search = '';
+    const res = await fetch(`${SERVER_URL}/get/topics?search=${search}`, 
         {credentials:"include"})
         .then(res=>res.json());
     if(res) return res;

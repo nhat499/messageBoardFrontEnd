@@ -20,6 +20,8 @@ function NewCommentSection(props) {
                         if(res.status === 200){
                             props.refetch();
                             props.topicRefetch();
+                            props.socket.emit('topicUpdated');
+                            props.socket.emit('commentUpdated');
                         } else alert(res.message);
                     });
                     props.setComment("");
@@ -40,7 +42,8 @@ NewCommentSection.propTypes = {
     topicRefetch: PropTypes.func,
     setAddNewComment: PropTypes.func,
     id: PropTypes.string,
-    refetch: PropTypes.func
+    refetch: PropTypes.func,
+    socket: PropTypes.object
 }
 
 export {NewCommentSection, CommentHeader, IndividualComment}

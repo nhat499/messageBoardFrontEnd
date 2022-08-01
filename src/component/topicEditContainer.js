@@ -12,8 +12,11 @@ function EditContainer(props) {
         }}/>
         <button onClick={() =>{
           updateTopic(props.currTopic, props.topicId, userId).then((res)=> {
-            if(res.status === 200) props.topicRefetch();
-            else alert(res.message);
+            if(res.status === 200) {
+              props.topicRefetch();
+              console.log(props);
+              props.socket.emit('singleTopicRefetch');
+            } else alert(res.message);
             props.setEdit(false);
     
           })
@@ -30,6 +33,7 @@ function EditContainer(props) {
     setCurrTopic: PropTypes.func,
     topicId: PropTypes.number,
     topicRefetch: PropTypes.func,
+    socket: PropTypes.object,
     setEdit: PropTypes.func
   }
 
