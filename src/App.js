@@ -10,9 +10,9 @@ import {
 import HomePage from './page/homePage.js';
 import {SignInPage} from './page/signInPage.js';
 import io from 'socket.io-client';
-import {SERVER_URL} from './util/variables.js'
+//import {SERVER_URL} from './util/variables.js'
 console.log(process.env.SERVER_URL);
-const socket = io.connect(SERVER_URL);
+const socket = io.connect('http://34.216.189.30');
 
 function App() {
   return (
