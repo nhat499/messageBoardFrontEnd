@@ -11,7 +11,7 @@ import HomePage from './page/homePage.js';
 import {SignInPage} from './page/signInPage.js';
 import io from 'socket.io-client';
 import {SERVER_URL} from './util/variables.js'
-console.log(SERVER_URL);
+console.log(process.env.SERVER_URL);
 const socket = io.connect(SERVER_URL);
 
 function App() {
