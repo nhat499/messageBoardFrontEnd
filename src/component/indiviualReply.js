@@ -27,7 +27,7 @@ function IndividualReply(props) {
                             insertLikesTopicCommentReply(data.replyId, 'reply')
                             .then(res=> {
                                 if (res.status === 200) {
-                                    props.refetch();
+                                    //props.refetch();
                                     props.socket.emit('replyUpdated');
                                 }else alert(res.message);
                             })
@@ -37,7 +37,7 @@ function IndividualReply(props) {
                             deleteLikesTopicCommentReply(data.replyId, 'reply')
                             .then(res=> {
                                 if (res.status === 200) {
-                                    props.refetch();
+                                    //props.refetch();
                                     props.socket.emit('replyUpdated');
                                 } else alert(res.message);
                             })
@@ -47,10 +47,10 @@ function IndividualReply(props) {
                         <button onClick={()=>{
                             removeReply(data.replyId, userId).then((res) => {                              
                                 if (res.status === 200) { 
-                                    props.refetch();
-                                    props.commentRefetch();
-                                    props.socket.emit('commentUpdated');
+                                    //props.refetch();
+                                    //props.commentRefetch();
                                     props.socket.emit('replyUpdated');
+                                    props.socket.emit('commentUpdated'); 
                                 } else alert(res.message);
                             });   
                         }}>delete</button>
@@ -62,8 +62,8 @@ function IndividualReply(props) {
             <button onClick={()=> {
                 updateReply(reply, data.replyId).then((res)=> {
                     if (res.status === 200) {
-                        props.refetch();
-                        props.socket.emit('replyUpdate');
+                        //props.refetch();
+                        props.socket.emit('replyUpdated');
                     } else alert(res.message);
                     setEdit(false);
                 })

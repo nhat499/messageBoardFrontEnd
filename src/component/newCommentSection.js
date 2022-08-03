@@ -18,10 +18,11 @@ function NewCommentSection(props) {
                     if (props.comment)
                     insertNewComment(props.comment, props.id, userId).then((res)=>{
                         if(res.status === 200){
-                            props.refetch();
-                            props.topicRefetch();
-                            props.socket.emit('topicUpdated');
+                            //props.refetch();
+                            //props.topicRefetch();
                             props.socket.emit('commentUpdated');
+                            props.socket.emit('singleTopicRefetch');
+                            props.socket.emit('topicUpdated');
                         } else alert(res.message);
                     });
                     props.setComment("");

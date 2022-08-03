@@ -40,7 +40,7 @@ function IndividualComment(props) {
                     insertLikesTopicCommentReply(data.commentId, 'comment')
                     .then(res => {
                         if(res.status === 200) {
-                            props.commentRefetch();
+                            //props.commentRefetch();
                             props.socket.emit('commentUpdated');
                         }
                         else alert(res.message);
@@ -51,7 +51,7 @@ function IndividualComment(props) {
                     deleteLikesTopicCommentReply(data.commentId, 'comment')
                     .then(res => {
                         if (res.status === 200) {
-                            props.commentRefetch();
+                            //props.commentRefetch();
                             props.socket.emit('commentUpdated');
                         }
                         else alert(res.message);
@@ -60,7 +60,17 @@ function IndividualComment(props) {
 
                 {editComment && 
                 <button onClick={()=> {
-                    submitUpdateComment(comment, data.commentId, props.commentRefetch, props.socket,setEditComment);}}>submit
+                    // submitUpdateComment(comment, data.commentId, props.commentRefetch, props.socket);
+                    updateComment(comment, data.commentId).then((res) => {
+                        if (res.status === 200) {
+                            //commentRefetch();
+                            props.socket.emit('commentUpdated');
+                            // props.socket.emit('singleTopicRefetch');
+                            // props.socket.emit('topicUpdated');
+                        } else alert(res.message)
+                    })
+                    setEditComment(false);
+                    }}>submit
                 </button>}
 
                 {editComment && <button onClick={() => {
@@ -84,10 +94,11 @@ function IndividualComment(props) {
                 <button onClick={()=> {
                     deleteComment(data.commentId, userId).then((res)=> {
                         if (res.status === 200) {
-                            props.commentRefetch();
+                            //props.commentRefetch();
                             props.socket.emit('commentUpdated');
-                        }
-                        else alert(res.message);
+                            props.socket.emit('singleTopicRefetch');
+                            props.socket.emit('topicUpdated');
+                        } else alert(res.message);
                     });}}>delete
                 </button>}
             </div>
@@ -108,14 +119,15 @@ IndividualComment.propTypes = {
     socket: PropTypes.object
 }
 
-function submitUpdateComment(comment, commentId, setEditComment, socket, commentRefetch ) {
-    updateComment(comment, commentId).then((res) => {
-        if (res.status === 200) {
-            commentRefetch();
-            socket.emit('commentUpdated');
-        } else alert(res.message)
-        setEditComment(false);
-    })
-}
+// function submitUpdateComment(comment, commentId, socket) {
+//     updateComment(comment, commentId).then((res) => {
+//         if (res.status === 200) {
+//             //commentRefetch();
+//             socket.emit('commentUpdated');
+//             socket.emit('singleTopicRefetch');
+//             socket.emit('topicUpdated');
+//         } else alert(res.message)
+//     })
+// }
 
 export default IndividualComment;

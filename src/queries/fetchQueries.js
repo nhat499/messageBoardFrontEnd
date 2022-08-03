@@ -3,14 +3,17 @@ import {SERVER_URL} from '../util/variables.js'
 async function getUserInfo() {
     return fetch(`${SERVER_URL}/jwt/user`, 
         {credentials:"include"})
-        .then(res=>res.json())
+        .then(res=>{res.json()})
         .catch(err => console.log(err));
 }
 
-async function fetchListOfTopics(search) {
+async function fetchListOfTopics(search, page) {
     console.log(search);
     if (!search) search = '';
-    const res = await fetch(`${SERVER_URL}/get/topics?search=${search}`, 
+    const res = await fetch(`${SERVER_URL}/get/topics?` + new URLSearchParams({
+        search: search,
+        page: page
+    }), 
         {credentials:"include"})
         .then(res=>res.json());
     if(res) return res;

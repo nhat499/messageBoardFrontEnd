@@ -21,7 +21,7 @@ function TopicTextAreaComponent (props) {
                             insertTopic(newTopic, userId)
                             .then((res)=> {
                                 if (res.status === 200) {
-                                    props.refetch();
+                                    //props.refetch();
                                     props.socket.emit('topicUpdated');
                                 }else alert(res.message);
                             })

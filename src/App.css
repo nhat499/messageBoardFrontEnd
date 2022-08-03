@@ -38,6 +38,10 @@ button:hover {
   filter:brightness(85%);
 }
 
+/* .currPage {
+  filter:brightness(85%);
+} */
+
 textarea {
   height: fit-content;
   width:99%;

@@ -12,8 +12,8 @@ function NewReplySection(props) {
                 if(props.reply) {
                 insertNewReply(props.reply, props.commentId).then((res)=> {
                     if(res.status === 200) {
-                        props.refetch();
-                        props.commentRefetch();
+                        //props.refetch();
+                        //props.commentRefetch();
                         props.socket.emit('replyUpdated');
                         props.socket.emit('commentUpdated');
                     } else alert(res.message);
