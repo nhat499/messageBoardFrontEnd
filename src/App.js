@@ -13,7 +13,7 @@ import io from 'socket.io-client';
 import {SERVER_URL} from './util/variables.js'
 console.log(process.env.SERVER_URL);
 const socket = io.connect(SERVER_URL,{path: '/api/socket.io',transports: ['websocket']});
-// const socket = io.connect(SERVER_URL, {transports: ['websocket']});
+//const socket = io.connect(SERVER_URL, {transports: ['websocket']});
 
 function App() {
   return (

@@ -13,9 +13,13 @@ function EditContainer(props) {
         <button onClick={() =>{
           updateTopic(props.currTopic, props.topicId, userId).then((res)=> {
             if(res.status === 200) {
-              props.topicRefetch();
-              console.log(props);
+              if (props.isCommentPage){
+                props.topicRefetch();
+              } else {
+                props.allTopicRefetch();
+              }
               props.socket.emit('singleTopicRefetch');
+              props.socket.emit('topicUpdated');
             } else alert(res.message);
             props.setEdit(false);
     
@@ -32,9 +36,11 @@ function EditContainer(props) {
     currTopic: PropTypes.string,
     setCurrTopic: PropTypes.func,
     topicId: PropTypes.number,
-    topicRefetch: PropTypes.func,
+    allTopicRefetch: PropTypes.func,
     socket: PropTypes.object,
-    setEdit: PropTypes.func
+    setEdit: PropTypes.func,
+    isCommentPage: PropTypes.bool,
+    topicRefetch: PropTypes.func
   }
 
 export default EditContainer;

@@ -40,7 +40,7 @@ function homePage (props) {
                 <TopicTextAreaComponent socket={socket} isNotHidden={addNewTopic} setAddNewTopic={setAddNewTopic} refetch={refetch}/>
                 <FadeIn>
                     {data.result.map((eachData) => (
-                        <IndiviualTopic socket={socket} key={eachData.topicId} data={eachData} topicRefetch={refetch}/>
+                        <IndiviualTopic socket={socket} key={eachData.topicId} data={eachData} allTopicRefetch={refetch}/>
                     ))}
                 </FadeIn>
             </div>

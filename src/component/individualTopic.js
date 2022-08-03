@@ -33,9 +33,15 @@ const IndiviualTopic = (props) => {
                 insertLikesTopicCommentReply(data.topicId, 'topic')
                 .then(res=> {
                   if (res.status === 200) {
-                    props.topicRefetch();
+                    if (props.isCommentPage) {
+                      props.topicRefetch();
+                    } else { 
+                      props.allTopicRefetch();
+                    }
+                    props.socket.emit('singleTopicRefetch');
                     props.socket.emit('topicUpdated');
                   } else alert(res.message);
+                  
                 })
               }}> {data.numLikes} likes</button>}
 
@@ -45,7 +51,12 @@ const IndiviualTopic = (props) => {
                   deleteLikesTopicCommentReply(data.topicId, 'topic')
                   .then(res=> {
                     if (res.status === 200) {
-                      props.topicRefetch();
+                      if (props.isCommentPage) {
+                        props.topicRefetch();
+                      } else { 
+                        props.allTopicRefetch();
+                      }
+                      props.socket.emit('singleTopicRefetch');
                       props.socket.emit('topicUpdated');
                     } else alert(res.message);
                   })
@@ -55,12 +66,11 @@ const IndiviualTopic = (props) => {
               <button onClick={()=> {
                 removeTopic(data.topicId, userId).then((res)=> {
                   if(res.status === 200) {
-                    //props.topicRefetch()
+                    props.allTopicRefetch();
                     if (props.isCommentPage) {
-                      props.allTopicRefetch();
-                      navigate(-1);
-                      props.socket.emit('navigateBack')
+                      navigate('/home');
                     }
+                    props.socket.emit('navigateBack')
                     props.socket.emit('topicUpdated');
 
                   } else alert(res.message);
@@ -74,8 +84,10 @@ const IndiviualTopic = (props) => {
         <EditContainer 
         edit={edit} 
         currTopic={currTopic} 
+        isCommentPage={props.isCommentPage}
         setCurrTopic={setCurrTopic}
         topicId={data.topicId}
+        allTopicRefetch={props.allTopicRefetch}
         topicRefetch={props.topicRefetch}
         socket={socket}
         setEdit={setEdit}/>
