@@ -13,11 +13,8 @@ function EditContainer(props) {
         <button onClick={() =>{
           updateTopic(props.currTopic, props.topicId, userId).then((res)=> {
             if(res.status === 200) {
-              if (props.isCommentPage){
-                props.topicRefetch();
-              } else {
-                props.allTopicRefetch();
-              }
+              // if (props.topicRefetch() !== undefined) props.topicRefetch();
+              // if(props.allTopicRefetch() !== undefined) props.allTopicRefetch();
               props.socket.emit('singleTopicRefetch');
               props.socket.emit('topicUpdated');
             } else alert(res.message);

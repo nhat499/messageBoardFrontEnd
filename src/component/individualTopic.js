@@ -33,11 +33,8 @@ const IndiviualTopic = (props) => {
                 insertLikesTopicCommentReply(data.topicId, 'topic')
                 .then(res=> {
                   if (res.status === 200) {
-                    if (props.isCommentPage) {
-                      props.topicRefetch();
-                    } else { 
-                      props.allTopicRefetch();
-                    }
+                      // props.topicRefetch();
+                      // props.allTopicRefetch();
                     props.socket.emit('singleTopicRefetch');
                     props.socket.emit('topicUpdated');
                   } else alert(res.message);
@@ -51,11 +48,9 @@ const IndiviualTopic = (props) => {
                   deleteLikesTopicCommentReply(data.topicId, 'topic')
                   .then(res=> {
                     if (res.status === 200) {
-                      if (props.isCommentPage) {
-                        props.topicRefetch();
-                      } else { 
-                        props.allTopicRefetch();
-                      }
+                      // if (props.topicRefetch() !== undefined) props.topicRefetch();
+                      // if(props.allTopicRefetch() !== undefined) props.allTopicRefetch();
+                      
                       props.socket.emit('singleTopicRefetch');
                       props.socket.emit('topicUpdated');
                     } else alert(res.message);
@@ -66,7 +61,7 @@ const IndiviualTopic = (props) => {
               <button onClick={()=> {
                 removeTopic(data.topicId, userId).then((res)=> {
                   if(res.status === 200) {
-                    props.allTopicRefetch();
+                    // props.allTopicRefetch();
                     if (props.isCommentPage) {
                       navigate('/home');
                     }
