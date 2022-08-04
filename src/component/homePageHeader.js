@@ -14,7 +14,7 @@ function HomePageHeader(props) {
             <h2>List of Topics</h2>
             <button id='addNewTopicBtn' onClick={() => {
                     props.setAddNewTopic(true);
-                }}>Add new Topic</button>
+                }}>+ New Topic</button>
         </div>
     )
 }

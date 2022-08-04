@@ -1,3 +1,13 @@
+:root {
+  --black: black;
+  --white: #FEF;
+  --color1: #f1e7dd;
+  --color2: #d6ccc2;
+  --color3: #f5ebe0;
+  --color4: #e3d5ca;
+  --color5: #d5bdaf;
+  --backGround: linear-gradient(var(--color5), var(--color2), var(--color5))
+}
 
 .App {
   text-align: center;
@@ -5,27 +15,40 @@
   flex-direction: column;
   min-height: 100vh;
   align-items: center;
-  background-image: linear-gradient(#355866, #84d5f5, #355866);
+  background-image: var(--backGround);
 }
 
 .searchLogBtn {
   width: 100%;
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr auto;
   justify-content: space-between;
-  margin-top: 3px;
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
-.TopicContainer, .commentContainer {
+.searchTopic {
+  border-radius: 5px;
+  outline: none;
+  border: none;
+  padding: 0.5rem;
+}
+
+.homePage, .commentContainer {
   width: 50%;
-  background-image: linear-gradient(#264653, #84d5f5, #3180a0);
+  /* background-image: var(); */
+  background-color: var(--color3);
+  border-radius: 20px;
 }
 
 button {
   margin: 3px;
   color: #264653;
-  background-color: #9ec4bf;
+  background-color: transparent;
   transition: all .3s ease-in-out;
+  border: none;
+  padding: 0;
+  border-bottom: black 1px solid;
 }
 
 .unlikeBtn {
@@ -36,6 +59,23 @@ button:hover {
   /* background-color: #85aaa5; */
   transform: scale(1.1);
   filter:brightness(85%);
+}
+
+.profile {
+  display: flex;
+}
+
+.topicCommentHeader {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  height: 25px;
+}
+
+.profileImg {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
 }
 
 /* .currPage {
@@ -52,15 +92,21 @@ textarea {
   display: none;
 }
 
-.TopicContainer > .header {
+.timePost {
+  font-size: 15px;
+  opacity: 75%;
+}
+
+.homePage > .header {
   padding-left: 20px;
   padding-right: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px black solid;
+  border-bottom: 1px var(--color3) solid;
   text-align: left;
-  background-image: linear-gradient(#e76f51,#fd896c, #e76f51);
+  border-radius: 20px;
+  background-image: linear-gradient(var(--color2),var(--color5), var(--color4));
   font-size: 20px;
   margin: 0px;
 }
@@ -81,19 +127,22 @@ textarea {
 .authorName {
   width: fit-content;
   height: fit-content;
-
+  font-size: 15px;
 }
 
 .detailInfo {
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
 }
 
 .TopicNameAuthor{
   display: flex;
-  flex-direction: column;
 }
 
+.info {
+  width: 100%;
+  padding-left: 5px;
+}
 
 p {
   margin: 5px;
@@ -120,8 +169,18 @@ p {
   width: 80%;
 }
 
+/* .commentContainer {
+  align-items: flex-end;
+} */
+
+.IndividualComment {
+  margin-left: 10%;
+}
+
 .IndividualReply {
-  background-image: linear-gradient(#3ee4d0,#65fcea,#3ee4d0);
+  display: flex;
+  /* background-image: linear-gradient(var(--color1),var(--color3),var(--color1)); */
+  background-color: var(--color1);
   margin-top: 5px;
   border-radius: 10px;
   transition: all .5s ease-in-out;
@@ -137,31 +196,30 @@ p {
 
 
 .IndiviualTopic {
-  background-image: linear-gradient(#f4a261, #fdb479, #f4a261);
+  /* background-image: linear-gradient(var(--color1)); */
+  background-color: var(--color2);
   border-radius: 20px;
   height: fit-content;
   margin: 5px;
   transition: all .5s ease-in-out;
 }
 
-.TopicContainer .IndiviualTopic:hover {
+.homePage .IndiviualTopic:hover {
   transform: scale(1.05);
   border: 5px #3180a0;
 }
 
 .IndividualComment {
   display: flex;
-  flex-direction: column;
-  background-image: linear-gradient(#e9c46a,#fad987,#e9c46a);
-  border-radius: 10px;
-  margin: 5px;
+  /* background-image: linear-gradient(var(--color3),var(--color1),var(--color3)); */
+  background-color: var(--color4);
+  border-radius: 20px;
   align-items: flex-start;
   transition: all .5s ease-in-out;
 }
 
 .commentContainer .IndividualComment:hover {
   transform: scale(1.05);
-  border: 3px #3180a0;
 }
 
 .IndividualCommentInfo {
@@ -173,15 +231,13 @@ p {
   padding-right: 20px;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin-bottom: 1rem;
   height: fit-content;
 }
 
-.commentContainer > .IndiviualTopic {
-  margin: 0px;
-  border-radius: 0px;
+.TopicContainer {
+  min-height: fit-content;
 }
-
-
 
 
 .replyNameBtn {
@@ -191,7 +247,7 @@ p {
 }
 
 
-.commentContainer, .TopicContainer {
+.commentContainer, .homePage {
   padding-top: 3%;
   margin-bottom: 5%;
   padding-left: 10px;
@@ -204,14 +260,25 @@ p {
   padding-right: 20px;
 } */
 #addNewTopicBtn {
-  width: 100%;
+  width: fit-content;
   margin-bottom: 10px;
+  align-self: end;
+}
+
+#addNewCommentBtn {
+  width: fit-content;
+  align-self: end;
+}
+
+.LikeComment {
+  display: flex;
 }
 
 .topic {
   font-size: large;
   color: black;
-  text-decoration:none
+  text-decoration:none;
+  justify-self: start;
 }
 
 .topic:hover {
@@ -224,12 +291,61 @@ p {
 }
 
 .logBtn {
-  width: 100%;
+  width:fit-content;
   display: flex;
+  height: fit-content;
   justify-content: right;
 }
+.LogOutBtn {
+  width: fit-content;
+}
 
+.homeBtn {
+  width: fit-content;
+  align-self: flex-start;
+  margin-left: 1.5rem;
+  margin-bottom: 0.25rem;
+}
 
+:disabled {
+  border-bottom: black 3px solid;
+}
+
+/*                         */
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}
+
+.commentBtn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.deleteEditReply {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.editComment {
+  width: 100%;
+}
 
 /* .App-logo {
   height: 40vmin;

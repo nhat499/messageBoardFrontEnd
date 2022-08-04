@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy":  "http://34.216.189.30/api",
+  "proxy": "http://34.216.189.30/api",
   "proxy2": "http://localhost:8000/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
@@ -10,10 +10,12 @@
     "@testing-library/user-event": "^13.5.0",
     "fs": "^0.0.1-security",
     "react": "^18.2.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^18.2.0",
     "react-fade-in": "^2.0.1",
     "react-query": "^4.0.0",
     "react-scripts": "5.0.1",
+    "react-transition-group": "^4.4.5",
     "socket.io-client": "^4.5.1",
     "web-vitals": "^2.1.4",
     "webpack": "^5.74.0"

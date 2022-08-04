@@ -15,7 +15,6 @@ function ReplyContainer(props) {
     const [reply, setreply] = useState("");
 
     socket.on('replyUpdated', () => {
-        console.log("updating reply");
         refetch();
     });
     useEffect(()=> {
@@ -31,9 +30,8 @@ function ReplyContainer(props) {
                     <IndividualReply refetch={refetch} socket={socket} commentRefetch={props.commentRefetch} key={eachData.replyId} data={eachData}/>
                 ))}
             </FadeIn>
-            
             { !addNewReply && <button 
-                onClick={() => setaddNewReply(true)}>add new reply</button>}
+                onClick={() => setaddNewReply(true)}>+ New Reply</button>}
             {addNewReply && <NewReplySection 
                 commentRefetch={props.commentRefetch}
                 socket={socket}

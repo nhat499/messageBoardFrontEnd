@@ -5,14 +5,12 @@ import PropTypes from 'prop-types';
 
 function LogBtn(props) {
     return (
-        <div className="logBtn">
+        <>
             {props.user && 
-            <>
-                <p>Hello {props.user.firstName}!</p>
                 <LogOut className="logOIBtn"/>
-            </>}
+            }
             {!props.user && <LogIn className="logOIBtn"/>}
-        </div>
+        </>
     )
 }
 

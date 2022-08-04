@@ -3,12 +3,11 @@ import {SERVER_URL} from '../util/variables.js'
 async function getUserInfo() {
     return fetch(`${SERVER_URL}/jwt/user`, 
         {credentials:"include"})
-        .then(res=>{res.json()})
+        .then(res=>res.json())
         .catch(err => console.log(err));
 }
 
 async function fetchListOfTopics(search, page) {
-    console.log(search);
     if (!search) search = '';
     const res = await fetch(`${SERVER_URL}/get/topics?` + new URLSearchParams({
         search: search,
@@ -132,7 +131,7 @@ async function deleteLikesTopicCommentReply(topicCommentReplyId, topicCommentRep
         .catch(err => console.log('deleteLikesTopicCommentReply:', err));
 }
 
-async function deleteComment(commentId, userId) {
+async function deleteComment(commentId) {
     const requestOptions = {
         method: 'DELETE',
         credentials: 'include',
@@ -140,7 +139,6 @@ async function deleteComment(commentId, userId) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            userId: userId, //CHANGE THIS LATER!!
             commentId: commentId
         })
     }
@@ -151,7 +149,7 @@ async function deleteComment(commentId, userId) {
         .catch(err=> console.log("deleteComment: ", err));
 }
 
-async function removeTopic(topicId, userId) {
+async function removeTopic(topicId) {
     const requestOptions = {
         method: 'DELETE',
         credentials: 'include',
@@ -159,7 +157,6 @@ async function removeTopic(topicId, userId) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            userId: userId, //CHANGE THIS LATER!!
             topicId: topicId
         })
     }

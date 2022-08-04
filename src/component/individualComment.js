@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from "react";
 import {
-    updateComment, 
-    deleteComment, 
     insertLikesTopicCommentReply,
-    deleteLikesTopicCommentReply
+    deleteLikesTopicCommentReply,
+    deleteComment
 } from '../queries/fetchQueries.js';
 import PropTypes from 'prop-types';
 import EditCommentTextArea from "./editCommentTextArea.js";
@@ -15,93 +14,87 @@ function IndividualComment(props) {
     const [viewReply, setViewReply] = useState(false);
     const [editComment, setEditComment] = useState(false);
     const [comment, setComment] = useState(data.theComment);
-    const userId = 1; // GET FROM COOKIES LATER
     useEffect(() => {
         setComment(data.theComment);
     },[data])
-
     return (
         <>
         <div className='IndividualComment' data={data}>
-            { !editComment && <div className='IndividualCommentInfo'>
-                <p>{data.commentId}. {data.theComment}</p>
-                {/* <p>{data.timePost}</p> */}
-                <DateTime timePost={data.timePost}/>
-                <p>{"-" + data.firstName + " " + data.lastName}</p>
+            {!editComment && <img className="profileImg" src={data.profileImg}/>}
+
+            {<div className='IndividualCommentInfo'>
+                {!editComment && <div className="topicCommentHeader">
+                    <p><strong>{data.firstName} {data.lastName}</strong></p>
+                    <DateTime timePost={data.timePost}/>
+                </div>}
+                {!editComment && <p>{data.theComment}</p>}
+
+                <div className="commentBtn">
+
+                    {!editComment && <div className="likesrepliesBtn">
+                        {(data.liked === 0) &&<button onClick={() => {
+                            insertLikesTopicCommentReply(data.commentId, 'comment')
+                            .then(res => {
+                                if(res.status === 200) {
+                                    //props.commentRefetch();
+                                    props.socket.emit('commentUpdated');
+                                }
+                                else alert(res.message);
+                            })
+                        }}>{data.numLikes} likes</button>}
+
+                        {(data.liked === 1) && <button className="unlikeBtn" onClick={() => {
+                            deleteLikesTopicCommentReply(data.commentId, 'comment')
+                            .then(res => {
+                                if (res.status === 200) {
+                                    //props.commentRefetch();
+                                    props.socket.emit('commentUpdated');
+                                }
+                                else alert(res.message);
+                            })
+                        }}>{data.numLikes} likes</button>}
+
+                        {!viewReply && <button onClick={() => {
+                            setViewReply(true);}}>view replies ({data.numReply})
+                        </button>}  
+
+                        {viewReply &&
+                        <button onClick={() => {
+                            setViewReply(false);}}>hide replies ({data.numReply})
+                        </button>}
+                    </div>}
+                    
+                <div>
+                    {!editComment && 
+                    <button onClick={() => setEditComment(true)}>edit comment
+                    </button>}
+
+                    {!editComment && 
+                    <button onClick={()=> {
+                        deleteComment(data.commentId).then((res)=> {
+                            if (res.status === 200) {
+                                //props.commentRefetch();
+                                props.socket.emit('commentUpdated');
+                                props.socket.emit('singleTopicRefetch');
+                                props.socket.emit('topicUpdated');
+                            } else alert(res.message);
+                        });}}>delete
+                    </button>}
+                </div>
+
+                    {editComment && <EditCommentTextArea 
+                        setEditComment={setEditComment}
+                        comment={comment} 
+                        setComment={setComment}
+                    />}
+
+                </div>
             </div>}
 
-            {editComment && <EditCommentTextArea 
-                comment={comment} 
-                setComment={setComment}
-            />}
 
-            <div>
-                {(data.liked === 0) &&<button onClick={() => {
-                    insertLikesTopicCommentReply(data.commentId, 'comment')
-                    .then(res => {
-                        if(res.status === 200) {
-                            //props.commentRefetch();
-                            props.socket.emit('commentUpdated');
-                        }
-                        else alert(res.message);
-                    })
-                }}>{data.numLikes} likes</button>}
 
-                {(data.liked === 1) && <button className="unlikeBtn" onClick={() => {
-                    deleteLikesTopicCommentReply(data.commentId, 'comment')
-                    .then(res => {
-                        if (res.status === 200) {
-                            //props.commentRefetch();
-                            props.socket.emit('commentUpdated');
-                        }
-                        else alert(res.message);
-                    })
-                }}>{data.numLikes} likes</button>}
 
-                {editComment && 
-                <button onClick={()=> {
-                    // submitUpdateComment(comment, data.commentId, props.commentRefetch, props.socket);
-                    updateComment(comment, data.commentId).then((res) => {
-                        if (res.status === 200) {
-                            //commentRefetch();
-                            props.socket.emit('commentUpdated');
-                            // props.socket.emit('singleTopicRefetch');
-                            // props.socket.emit('topicUpdated');
-                        } else alert(res.message)
-                    })
-                    setEditComment(false);
-                    }}>submit
-                </button>}
 
-                {editComment && <button onClick={() => {
-                    setEditComment(false);}}>cancel
-                </button>}
-
-                {!editComment && 
-                <button onClick={() => setEditComment(true)}>edit comment
-                </button>}
-
-                {!viewReply && !editComment && <button onClick={() => {
-                    setViewReply(true);}}>view replies ({data.numReply})
-                </button>}  
-
-                {viewReply && !editComment && 
-                <button onClick={() => {
-                    setViewReply(false);}}>hide replies ({data.numReply})
-                </button>}
-
-                {!editComment && 
-                <button onClick={()=> {
-                    deleteComment(data.commentId, userId).then((res)=> {
-                        if (res.status === 200) {
-                            //props.commentRefetch();
-                            props.socket.emit('commentUpdated');
-                            props.socket.emit('singleTopicRefetch');
-                            props.socket.emit('topicUpdated');
-                        } else alert(res.message);
-                    });}}>delete
-                </button>}
-            </div>
         </div>
             {viewReply && <ReplyContainer 
                 socket = {props.socket}

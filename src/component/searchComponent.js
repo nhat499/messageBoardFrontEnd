@@ -6,7 +6,7 @@ function SearchContainer(props) {
     
     return (
         <>
-        <input type="text" placeholder="search" onChange={(e) => {
+        <input className="searchTopic" type="text" placeholder="search" onChange={(e) => {
             props.setSearch(e.target.value);
         }}></input>
         </>

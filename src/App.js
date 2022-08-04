@@ -10,10 +10,13 @@ import {
 import HomePage from './page/homePage.js';
 import {SignInPage} from './page/signInPage.js';
 import io from 'socket.io-client';
-import {SERVER_URL} from './util/variables.js'
-console.log(process.env.SERVER_URL);
-const socket = io.connect(SERVER_URL,{path: '/api/socket.io',transports: ['websocket']});
-// const socket = io.connect(SERVER_URL, {transports: ['websocket']});
+import {SERVER_URL, DEV_MODE} from './util/variables.js'
+
+let socket = io.connect(SERVER_URL, {transports: ['websocket']});
+if (DEV_MODE){
+  socket = io.connect(SERVER_URL,{path: '/api/socket.io',transports: ['websocket']});
+}
+
 
 function App() {
   return (

@@ -6,7 +6,7 @@ function LogOut() {
         <>
         <button className='LogOutBtn' onClick={()=> {
             window.location.href = `${SERVER_URL}/signOut/start`
-        }} >Log Out</button>
+        }}>Log-Out</button>
         </>
     )
 }

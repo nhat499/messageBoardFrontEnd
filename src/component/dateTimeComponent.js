@@ -8,7 +8,7 @@ function DateTime(props) {
     const dateNow = new Date(Date.now())
     const timeAgo = timeSince(dateNow - datePosted);
     return (
-        <p>{timeAgo}</p>
+        <p className="timePost">{timeAgo}</p>
     )
 }
 
