@@ -18,6 +18,12 @@
   background-image: var(--backGround);
 }
 
+.signInPage {
+  display: flex;
+  flex-direction: column;
+  margin: 5%;
+}
+
 .searchLogBtn {
   width: 100%;
   display: grid;
@@ -345,6 +351,14 @@ p {
 
 .editComment {
   width: 100%;
+}
+
+.bigSignInBtn {
+  background-color: var(--color1);
+  border: none;
+  height: 3rem;
+  border-radius: 1rem;
+  margin: 1rem;
 }
 
 /* .App-logo {
