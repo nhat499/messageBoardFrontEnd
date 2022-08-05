@@ -6,7 +6,7 @@ function EditContainer(props) {
     return (
       <>
         {props.edit && <div className="IndiviualTopic">
-        <textarea value={props.currTopic} onChange={(e) => {
+        <textarea maxLength='255' value={props.currTopic} onChange={(e) => {
           props.setCurrTopic(e.target.value);
         }}/>
         <button onClick={() =>{

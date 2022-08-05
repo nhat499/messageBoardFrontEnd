@@ -11,6 +11,7 @@ function TopicTextAreaComponent (props) {
             <FadeIn>
                 <div className= "textAreaContainer">
                     <textarea 
+                        maxLength='255'
                         value={newTopic} 
                         onChange={(event)=> {
                             setNewTopic(event.target.value);

@@ -67,7 +67,7 @@ function IndividualReply(props) {
         </div>}
 
         {edit && <div className="editReply">
-            <textarea value={reply} onChange={(event) => setReply(event.target.value)}></textarea>
+            <textarea maxLength='255' value={reply} onChange={(event) => setReply(event.target.value)}></textarea>
             <button onClick={()=> {
                 updateReply(reply, data.replyId).then((res)=> {
                     if (res.status === 200) {

@@ -9,7 +9,7 @@ function NewCommentSection(props) {
         <>
         {(props.addNewComment) && 
                 <div className='NewCommentSection'>
-                    <textarea value={props.comment} onChange={(event)=> {
+                    <textarea maxLength='255' value={props.comment} onChange={(event)=> {
                         props.setComment(event.target.value);
                     }}></textarea>
                     <div>

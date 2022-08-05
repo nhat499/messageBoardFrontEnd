@@ -9,6 +9,7 @@ function EditCommentTextArea(props) {
     return (
         <div className="editComment">
             <textarea 
+                maxLength="255"
                 value={props.comment} 
                 onChange={(e) => props.setComment(e.target.value)}>
             </textarea>

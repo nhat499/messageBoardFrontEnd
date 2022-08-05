@@ -5,7 +5,7 @@ import { insertNewReply } from "../queries/fetchQueries";
 function NewReplySection(props) {
     return (
         <div className="NewReplySection">
-            <textarea value={props.reply} onChange={(event) => {
+            <textarea maxLength='255' value={props.reply} onChange={(event) => {
                 props.setreply(event.target.value);
             }}></textarea>
             <button onClick={() => {
