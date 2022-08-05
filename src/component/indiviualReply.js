@@ -7,6 +7,7 @@ import {
 } from '../queries/fetchQueries.js';
 import PropTypes from 'prop-types';
 import DateTime from "./dateTimeComponent.js";
+import {BiTrash, BiEdit} from 'react-icons/bi';
 
 function IndividualReply(props) {
     const data = props.data;
@@ -48,8 +49,8 @@ function IndividualReply(props) {
                                 }}>{data.numLikes} likes</button>}
                             </div>
                             <div>
-                                <button onClick={()=> setEdit(true)}>edit</button>
-                                <button onClick={()=>{
+                                <BiEdit className="clickIcon" onClick={()=> setEdit(true)}>edit</BiEdit>
+                                <BiTrash className="clickIcon" onClick={()=>{
                                     removeReply(data.replyId, userId).then((res) => {                              
                                         if (res.status === 200) { 
                                             //props.refetch();
@@ -58,7 +59,7 @@ function IndividualReply(props) {
                                             props.socket.emit('commentUpdated'); 
                                         } else alert(res.message);
                                     });   
-                                }}>delete</button>
+                                }}>delete</BiTrash>
                             </div>
                         </div>}
 

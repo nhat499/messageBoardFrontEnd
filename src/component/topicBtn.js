@@ -6,6 +6,7 @@ import {
 } from '../queries/fetchQueries.js';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom';
+import {BiTrash, BiEdit} from 'react-icons/bi';
 
 function TopicBtn(props) {
     const data = props.data;
@@ -46,10 +47,10 @@ function TopicBtn(props) {
             }}> {data.numComments + " comment"} </button>
           </div>
           <div className="deleteEdit">
-          <button onClick={()=> {
+          <BiEdit className="clickIcon" onClick={()=> {
                 props.setEdit(true);
-            }}>edit topic</button>
-            <button onClick={()=> {
+            }}>edit topic</BiEdit>
+            <BiTrash className="clickIcon "onClick={()=> {
                 removeTopic(data.topicId).then((res)=> {
                 if(res.status === 200) {
                     // props.allTopicRefetch();
@@ -61,7 +62,7 @@ function TopicBtn(props) {
 
                 } else alert(res.message);
                 })
-            }}>delete</button>
+            }}>delete</BiTrash>
           </div>
       </div>
     )

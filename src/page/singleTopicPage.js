@@ -18,6 +18,7 @@ import FadeIn from 'react-fade-in';
 import PropTypes from 'prop-types';
 import {useNavigate} from 'react-router-dom'
 
+
 function Topic(props) {
     const navigate = useNavigate();
     const listOfTopic = useQuery(['allTopics'], () => fetchListOfTopics(), {enabled:false});

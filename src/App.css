@@ -26,7 +26,7 @@
 
 .searchLogBtn {
   width: 100%;
-  display: grid;
+  display: flex;
   grid-template-columns: 1fr auto;
   justify-content: space-between;
   gap: 1rem;
@@ -38,6 +38,7 @@
   outline: none;
   border: none;
   padding: 0.5rem;
+  width: 100%;
 }
 
 .homePage, .commentContainer {
@@ -55,6 +56,16 @@ button {
   border: none;
   padding: 0;
   border-bottom: black 1px solid;
+}
+
+.clickIcon {
+  width: 1.25rem;
+  height: 1.25rem;
+  transition: all .3s ease-in-out;
+}
+
+.clickIcon:hover {
+  transform: scale(1.1);
 }
 
 .unlikeBtn {
@@ -92,6 +103,9 @@ textarea {
   height: fit-content;
   width:99%;
   margin-left: .2%;
+  border-radius: 20px;
+  margin-top: .25rem;
+  padding-left: 1rem;
 }
 
 .hidden {
@@ -287,12 +301,25 @@ p {
   justify-self: start;
 }
 
+.biSearch {
+  align-self: center;
+  padding-right: .25rem;
+}
+
+.SearchContainer {
+  display: flex;
+  align-items: flex-start;
+  width: 90%;
+}
+
 .topic:hover {
   color: red;
 }
 
+
+
 .logOIBtn {
-  width: 100%;
+  width: fit-content;
   text-align: right;
 }
 

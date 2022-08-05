@@ -8,6 +8,8 @@ import PropTypes from 'prop-types';
 import EditCommentTextArea from "./editCommentTextArea.js";
 import ReplyContainer from './replyContainer.js'
 import DateTime from "./dateTimeComponent.js";
+import {BiTrash, BiEdit} from 'react-icons/bi';
+
 
 function IndividualComment(props) {
     const data = props.data;
@@ -66,11 +68,11 @@ function IndividualComment(props) {
                     
                 <div>
                     {!editComment && 
-                    <button onClick={() => setEditComment(true)}>edit comment
-                    </button>}
+                    <BiEdit className="clickIcon" onClick={() => setEditComment(true)}>edit comment
+                    </BiEdit>}
 
                     {!editComment && 
-                    <button onClick={()=> {
+                    <BiTrash className="clickIcon" onClick={()=> {
                         deleteComment(data.commentId).then((res)=> {
                             if (res.status === 200) {
                                 //props.commentRefetch();
@@ -79,7 +81,7 @@ function IndividualComment(props) {
                                 props.socket.emit('topicUpdated');
                             } else alert(res.message);
                         });}}>delete
-                    </button>}
+                    </BiTrash>}
                 </div>
 
                     {editComment && <EditCommentTextArea 
