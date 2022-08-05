@@ -8,6 +8,7 @@ import {
 import PropTypes from 'prop-types';
 import DateTime from "./dateTimeComponent.js";
 import {BiTrash, BiEdit} from 'react-icons/bi';
+import TextareaAutosize from 'react-textarea-autosize';
 
 function IndividualReply(props) {
     const data = props.data;
@@ -67,7 +68,7 @@ function IndividualReply(props) {
         </div>}
 
         {edit && <div className="editReply">
-            <textarea maxLength='255' value={reply} onChange={(event) => setReply(event.target.value)}></textarea>
+            <TextareaAutosize maxLength='255' value={reply} onChange={(event) => setReply(event.target.value)}/>
             <button onClick={()=> {
                 updateReply(reply, data.replyId).then((res)=> {
                     if (res.status === 200) {

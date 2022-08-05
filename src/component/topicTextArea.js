@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import PropTypes from 'prop-types';
 import { insertTopic } from "../queries/fetchQueries";
 import FadeIn from "react-fade-in/lib/FadeIn.js";
-
+import TextareaAutosize from 'react-textarea-autosize';
 
 function TopicTextAreaComponent (props) {
     const [newTopic, setNewTopic] = useState('');
@@ -10,7 +10,7 @@ function TopicTextAreaComponent (props) {
         return (
             <FadeIn>
                 <div className= "textAreaContainer">
-                    <textarea 
+                    <TextareaAutosize 
                         maxLength='255'
                         value={newTopic} 
                         onChange={(event)=> {

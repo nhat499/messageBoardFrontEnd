@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import { insertNewReply } from "../queries/fetchQueries";
+import TextareaAutosize from 'react-textarea-autosize';
 
 function NewReplySection(props) {
     return (
         <div className="NewReplySection">
-            <textarea maxLength='255' value={props.reply} onChange={(event) => {
+            <TextareaAutosize maxLength='255' value={props.reply} onChange={(event) => {
                 props.setreply(event.target.value);
-            }}></textarea>
+            }}/>
             <button onClick={() => {
                 if(props.reply) {
                 insertNewReply(props.reply, props.commentId).then((res)=> {

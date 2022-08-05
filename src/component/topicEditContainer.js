@@ -1,12 +1,13 @@
 import React from "react";
 import {updateTopic} from '../queries/fetchQueries.js';
 import PropTypes from 'prop-types';
+import TextareaAutosize from 'react-textarea-autosize';
 
 function EditContainer(props) {
     return (
       <>
         {props.edit && <div className="IndiviualTopic">
-        <textarea maxLength='255' value={props.currTopic} onChange={(e) => {
+        <TextareaAutosize maxLength='255' value={props.currTopic} onChange={(e) => {
           props.setCurrTopic(e.target.value);
         }}/>
         <button onClick={() =>{

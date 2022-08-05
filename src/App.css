@@ -104,7 +104,16 @@ textarea {
   background-color: transparent;
   border: 1px black dashed;
   resize: vertical;
+  word-wrap: break-word;
+  overflow-y: auto;
 }
+
+/* .textarea {
+  display: block;
+  width: 100%;
+  resize: vertical;
+  min-height: fit-content;
+} */
 
 .hidden {
   display: none;

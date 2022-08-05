@@ -3,15 +3,16 @@ import React from "react";
 import PropTypes from 'prop-types';
 import IndividualComment from "./individualComment";
 import CommentHeader from "./commentHeader";
+import TextareaAutosize from 'react-textarea-autosize';
 
 function NewCommentSection(props) {
     return (
         <>
         {(props.addNewComment) && 
                 <div className='NewCommentSection'>
-                    <textarea maxLength='255' value={props.comment} onChange={(event)=> {
+                    <TextareaAutosize maxLength='255' value={props.comment} onChange={(event)=> {
                         props.setComment(event.target.value);
-                    }}></textarea>
+                    }}/>
                     <div>
                     <button onClick={() => {
                         if (props.comment)

@@ -12,11 +12,11 @@ import {SignInPage} from './page/signInPage.js';
 import io from 'socket.io-client';
 import {SERVER_URL, DEV_MODE} from './util/variables.js'
 
-const socket = io.connect(SERVER_URL,{path: '/api/socket.io',transports: ['websocket']});
+// const socket = io.connect(SERVER_URL,{path: '/api/socket.io',transports: ['websocket']});
 
 console.log("dev mode: ", DEV_MODE);
 // if (DEV_MODE){
-// const socket = io.connect(SERVER_URL, {transports: ['websocket']});
+const socket = io.connect(SERVER_URL, {transports: ['websocket']});
 // }
 
 

@@ -3,16 +3,16 @@ import PropTypes from "prop-types";
 import {
     updateComment,
 } from '../queries/fetchQueries.js';
+import TextareaAutosize from 'react-textarea-autosize';
 
 function EditCommentTextArea(props) {
     const data = props.data;
     return (
         <div className="editComment">
-            <textarea 
+            <TextareaAutosize 
                 maxLength="255"
                 value={props.comment} 
-                onChange={(e) => props.setComment(e.target.value)}>
-            </textarea>
+                onChange={(e) => props.setComment(e.target.value)}/>
             {<button onClick={()=> {
                 updateComment(props.comment, data.commentId).then((res) => {
                     if (res.status === 200) {
