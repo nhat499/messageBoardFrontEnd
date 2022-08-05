@@ -8,28 +8,28 @@ function NewCommentSection(props) {
     return (
         <>
         {(props.addNewComment) && 
-                <>
-                <textarea value={props.comment} onChange={(event)=> {
-                    props.setComment(event.target.value);
-                }}></textarea>
-                <div>
-                <button onClick={() => {
-                    if (props.comment)
-                    insertNewComment(props.comment, props.id).then((res)=>{
-                        if(res.status === 200){
-                            //props.refetch();
-                            //props.topicRefetch();
-                            props.socket.emit('commentUpdated');
-                            props.socket.emit('singleTopicRefetch');
-                            props.socket.emit('topicUpdated');
-                        } else alert(res.message);
-                    });
-                    props.setComment("");
-                    props.setAddNewComment(false);
-                    }}>submit</button>
-                <button onClick={() => props.setAddNewComment(false)}>cancel</button>
+                <div className='NewCommentSection'>
+                    <textarea value={props.comment} onChange={(event)=> {
+                        props.setComment(event.target.value);
+                    }}></textarea>
+                    <div>
+                    <button onClick={() => {
+                        if (props.comment)
+                        insertNewComment(props.comment, props.id).then((res)=>{
+                            if(res.status === 200){
+                                //props.refetch();
+                                //props.topicRefetch();
+                                props.socket.emit('commentUpdated');
+                                props.socket.emit('singleTopicRefetch');
+                                props.socket.emit('topicUpdated');
+                            } else alert(res.message);
+                        });
+                        props.setComment("");
+                        props.setAddNewComment(false);
+                        }}>submit</button>
+                    <button onClick={() => props.setAddNewComment(false)}>cancel</button>
+                    </div>
                 </div>
-                </>
                 }
         </>
     )

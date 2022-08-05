@@ -103,6 +103,7 @@ textarea {
   padding-left: 1rem;
   background-color: transparent;
   border: 1px black dashed;
+  resize: vertical;
 }
 
 .hidden {
@@ -184,6 +185,11 @@ p {
   margin-left: 10%;
 }
 
+.NewCommentSection {
+  width: 90%;
+  align-self: flex-end;
+}
+
 .IndividualReply {
   display: flex;
   /* background-image: linear-gradient(var(--color1),var(--color3),var(--color1)); */
@@ -229,7 +235,7 @@ p {
   width:100%;
 }
 
-.IndividualComment, .IndiviualTopic, .IndividualReply, .NewReplySection{
+.IndividualComment, .IndiviualTopic, .IndividualReply {
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 5px;
