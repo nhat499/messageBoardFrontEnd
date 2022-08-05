@@ -6,7 +6,6 @@ import FadeIn from "react-fade-in/lib/FadeIn.js";
 
 function TopicTextAreaComponent (props) {
     const [newTopic, setNewTopic] = useState('');
-    const userId = 1; // GET FROM COOKIES
     if (props.isNotHidden)
         return (
             <FadeIn>
@@ -18,7 +17,7 @@ function TopicTextAreaComponent (props) {
                     }}/>
                     <button onClick={() => {
                         if (newTopic) {
-                            insertTopic(newTopic, userId)
+                            insertTopic(newTopic)
                             .then((res)=> {
                                 if (res.status === 200) {
                                     //props.refetch();

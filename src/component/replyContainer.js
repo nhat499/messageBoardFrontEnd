@@ -40,7 +40,6 @@ function ReplyContainer(props) {
                 reply={reply} 
                 setreply={setreply} 
                 setaddNewReply={setaddNewReply}/>}
-            
         </div>
     )
 }

@@ -13,7 +13,6 @@ function IndividualReply(props) {
     const data = props.data;
     const [edit, setEdit] = useState(false);
     const [reply, setReply] = useState(data.reply);
-    const userId = 1; // GET FROM COOKIES
     return (
         <>
         {!edit && <div className='IndividualReply'>
@@ -51,7 +50,7 @@ function IndividualReply(props) {
                             <div>
                                 <BiEdit className="clickIcon" onClick={()=> setEdit(true)}>edit</BiEdit>
                                 <BiTrash className="clickIcon" onClick={()=>{
-                                    removeReply(data.replyId, userId).then((res) => {                              
+                                    removeReply(data.replyId).then((res) => {                              
                                         if (res.status === 200) { 
                                             //props.refetch();
                                             //props.commentRefetch();

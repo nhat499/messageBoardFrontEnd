@@ -7,7 +7,6 @@ import {BiSearch} from 'react-icons/bi';
 function SearchContainer(props) {
     
     return (
-        
         <div className="SearchContainer">
             <BiSearch className="biSearch"/>
             <input className="searchTopic" type="text" placeholder="search" onChange={(e) => {

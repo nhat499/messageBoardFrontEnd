@@ -3,7 +3,6 @@ import {updateTopic} from '../queries/fetchQueries.js';
 import PropTypes from 'prop-types';
 
 function EditContainer(props) {
-    const userId = 1; // GET FROM COOKIES
     return (
       <>
         {props.edit && <div className="IndiviualTopic">
@@ -11,7 +10,7 @@ function EditContainer(props) {
           props.setCurrTopic(e.target.value);
         }}/>
         <button onClick={() =>{
-          updateTopic(props.currTopic, props.topicId, userId).then((res)=> {
+          updateTopic(props.currTopic, props.topicId).then((res)=> {
             if(res.status === 200) {
               // if (props.topicRefetch() !== undefined) props.topicRefetch();
               // if(props.allTopicRefetch() !== undefined) props.allTopicRefetch();

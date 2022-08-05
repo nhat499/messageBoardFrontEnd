@@ -38,7 +38,6 @@ function IndividualComment(props) {
                             insertLikesTopicCommentReply(data.commentId, 'comment')
                             .then(res => {
                                 if(res.status === 200) {
-                                    //props.commentRefetch();
                                     props.socket.emit('commentUpdated');
                                 }
                                 else alert(res.message);
@@ -48,8 +47,7 @@ function IndividualComment(props) {
                         {(data.liked === 1) && <button className="unlikeBtn" onClick={() => {
                             deleteLikesTopicCommentReply(data.commentId, 'comment')
                             .then(res => {
-                                if (res.status === 200) {
-                                    //props.commentRefetch();
+                                if (res.status === 200) { 
                                     props.socket.emit('commentUpdated');
                                 }
                                 else alert(res.message);
@@ -75,7 +73,6 @@ function IndividualComment(props) {
                     <BiTrash className="clickIcon" onClick={()=> {
                         deleteComment(data.commentId).then((res)=> {
                             if (res.status === 200) {
-                                //props.commentRefetch();
                                 props.socket.emit('commentUpdated');
                                 props.socket.emit('singleTopicRefetch');
                                 props.socket.emit('topicUpdated');
@@ -85,6 +82,8 @@ function IndividualComment(props) {
                 </div>
 
                     {editComment && <EditCommentTextArea 
+                        data={data}
+                        socket={props.socket}
                         setEditComment={setEditComment}
                         comment={comment} 
                         setComment={setComment}
@@ -113,16 +112,5 @@ IndividualComment.propTypes = {
     commentRefetch: PropTypes.func,
     socket: PropTypes.object
 }
-
-// function submitUpdateComment(comment, commentId, socket) {
-//     updateComment(comment, commentId).then((res) => {
-//         if (res.status === 200) {
-//             //commentRefetch();
-//             socket.emit('commentUpdated');
-//             socket.emit('singleTopicRefetch');
-//             socket.emit('topicUpdated');
-//         } else alert(res.message)
-//     })
-// }
 
 export default IndividualComment;

@@ -44,7 +44,7 @@ async function fetchListOfReply(commentId) {
     else throw new Error(res);
 }
 
-async function insertTopic(newTopic, userId) { // always userId 1
+async function insertTopic(newTopic) { 
     const requestOptions = {
         method: 'POST',
         credentials: 'include',
@@ -52,7 +52,6 @@ async function insertTopic(newTopic, userId) { // always userId 1
             "Content-type": "application/json; charset=UTF-8",
         },
         body: JSON.stringify({
-            userId: userId, //CHANGE THIS LATER!!
             topic: newTopic
         })
     };
@@ -61,7 +60,7 @@ async function insertTopic(newTopic, userId) { // always userId 1
         .catch(err =>  {console.log(err)});
 }
 
-async function insertNewComment(newComment, topicId, userId) { // always userId 1
+async function insertNewComment(newComment, topicId) {
     const requestOptions = {
         method: 'POST',
         credentials: 'include',
@@ -69,7 +68,6 @@ async function insertNewComment(newComment, topicId, userId) { // always userId 
             "Content-type": "application/json; charset=UTF-8"
         },
         body: JSON.stringify({
-            userId: userId, //CHANGE THIS LATER!!
             comment: newComment,
             topicId: topicId
         })
@@ -79,7 +77,7 @@ async function insertNewComment(newComment, topicId, userId) { // always userId 
         .catch(err=> console.log(err));
 }
 
-async function insertNewReply(newReply, commentId, userId) {
+async function insertNewReply(newReply, commentId) {
     const requestOptions = {
         method: 'POST',
         credentials: 'include',
@@ -87,7 +85,6 @@ async function insertNewReply(newReply, commentId, userId) {
             "Content-type": "application/json; charset=UTF-8"
         },
         body: JSON.stringify({
-            userId: userId, //CHANGE THIS LATER!!
             reply: newReply,
             commentId: commentId
         })
@@ -165,7 +162,7 @@ async function removeTopic(topicId) {
         .catch(err=> console.log("removeTopic: ", err));
 }
 
-async function removeReply(replyId, userId) {
+async function removeReply(replyId) {
     const requestOptions = {
         method: 'DELETE',
         credentials: 'include',
@@ -173,7 +170,6 @@ async function removeReply(replyId, userId) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            userId: userId, //CHANGE THIS LATER!!
             replyId: replyId
         })
     };
@@ -182,13 +178,12 @@ async function removeReply(replyId, userId) {
         .catch(err=> console.log("removeReply: ", err));
 }
 
-async function updateTopic(newTopic, topicId, userId) {
+async function updateTopic(newTopic, topicId) {
     const requestOptions = {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-            userId: userId, // CHANGE THIS LATER!!
             topicId: topicId,
             topic: newTopic
         })
@@ -214,13 +209,12 @@ async function updateComment(newComment, commentId) {
         .catch(err=> console.log("update comment: ", err));
 }
 
-async function updateReply(reply, replyId, userId) {
+async function updateReply(reply, replyId) {
     const requestOptions = {
         method: 'PUT',
         credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
-            userId: userId, // CHANGE THIS LATER!!
             replyId: replyId,
             reply: reply
         })

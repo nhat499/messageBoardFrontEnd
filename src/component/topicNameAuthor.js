@@ -7,18 +7,6 @@ import TopicBtn from "./topicBtn";
 function TopicNameAuthor(props) {
     const data = props.data;
     return (
-      // <div className="TopicNameAuthor">
-      //  <div className="topicCommentHeader">
-      //   <div className="profile">
-      //     <img className="profileImg" src={data.profileImg}></img>
-      //     <p className='authorName'>{data.firstName} {data.lastName}</p>
-      //   </div>
-      //   <DateTime timePost={data.timePost}/>
-      //  </div>
-      //  <Link style={{textDecoration: 'none'}} to={`/topic/` + data.topicId}>
-      //     <p className='topic'>{data.topicId}. <strong>{data.topic}</strong></p>
-      //   </Link>
-      // </div>
       <div className="TopicNameAuthor">
         <img className="profileImg" src={data.profileImg}/>
         <div className="info">

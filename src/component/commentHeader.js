@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import IndiviualTopic from "./individualTopic";
 function CommentHeader(props) {
     return (
-        <>
-        <IndiviualTopic socket={props.socket} isCommentPage={true} allTopicRefetch={props.allTopicRefetch} topicRefetch={props.topicRefetch} data = {props.theTopic}/>
-        {/* {(!props.addNewComment) && <button id='addNewCommentBtn' onClick={
-            ()=> props.setAddNewComment(true)}>add new comment</button>} */}
-        </>
+        <IndiviualTopic 
+            socket={props.socket} 
+            isCommentPage={true} 
+            allTopicRefetch={props.allTopicRefetch} 
+            topicRefetch={props.topicRefetch} 
+            data = {props.theTopic}/> 
     )
 }
 

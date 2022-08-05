@@ -5,7 +5,6 @@ import IndividualComment from "./individualComment";
 import CommentHeader from "./commentHeader";
 
 function NewCommentSection(props) {
-    const userId = 1; // GET FROM COOKIES LATER
     return (
         <>
         {(props.addNewComment) && 
@@ -16,7 +15,7 @@ function NewCommentSection(props) {
                 <div>
                 <button onClick={() => {
                     if (props.comment)
-                    insertNewComment(props.comment, props.id, userId).then((res)=>{
+                    insertNewComment(props.comment, props.id).then((res)=>{
                         if(res.status === 200){
                             //props.refetch();
                             //props.topicRefetch();

@@ -7,20 +7,15 @@ import {
 function EditCommentTextArea(props) {
     const data = props.data;
     return (
-
         <div className="editComment">
             <textarea 
                 value={props.comment} 
                 onChange={(e) => props.setComment(e.target.value)}>
             </textarea>
             {<button onClick={()=> {
-                // submitUpdateComment(comment, data.commentId, props.commentRefetch, props.socket);
                 updateComment(props.comment, data.commentId).then((res) => {
                     if (res.status === 200) {
-                        //commentRefetch();
                         props.socket.emit('commentUpdated');
-                        // props.socket.emit('singleTopicRefetch');
-                        // props.socket.emit('topicUpdated');
                     } else alert(res.message)
                 })
                 props.setEditComment(false);
