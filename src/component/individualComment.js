@@ -22,7 +22,7 @@ function IndividualComment(props) {
     return (
         <>
         <div className='IndividualComment' data={data}>
-            {!editComment && <img className="profileImg" src={data.profileImg}/>}
+            {!editComment && <img className="profileImg" alt="profileIcon" src={data.profileImg}/>}
 
             {<div className='IndividualCommentInfo'>
                 {!editComment && <div className="topicCommentHeader">

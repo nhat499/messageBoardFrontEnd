@@ -2,9 +2,10 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://34.216.189.30/api/",
-  "proxy2": "http://localhost:8000/",
+  "proxy2": "http://34.216.189.30/api/",
+  "proxy": "http://localhost:8000/",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^13.5.0",
@@ -15,24 +16,20 @@
     "react-fade-in": "^2.0.1",
     "react-icons": "^4.4.0",
     "react-query": "^4.0.0",
-    "react-scripts": "5.0.1",
+    "react-redux": "^8.0.2",
+    "react-scripts": "^2.1.3",
     "react-textarea-autosize": "^8.3.4",
     "react-transition-group": "^4.4.5",
+    "redux": "^4.2.0",
+    "redux-saga": "^1.1.3",
     "socket.io-client": "^4.5.1",
-    "web-vitals": "^2.1.4",
-    "webpack": "^5.74.0"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -48,8 +45,6 @@
   },
   "devDependencies": {
     "dotenv": "^16.0.1",
-    "eslint": "^8.20.0",
-    "eslint-plugin-react": "^7.30.1",
     "react-router-dom": "^6.3.0"
   }
 }

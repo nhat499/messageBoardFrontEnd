@@ -8,7 +8,7 @@ function TopicNameAuthor(props) {
     const data = props.data;
     return (
       <div className="TopicNameAuthor">
-        <img className="profileImg" src={data.profileImg}/>
+        <img className="profileImg" alt="profileIcon" src={data.profileImg}/>
         <div className="info">
           <div className="topicCommentHeader">
             <p className='authorName'><strong>{data.firstName} {data.lastName}</strong></p>

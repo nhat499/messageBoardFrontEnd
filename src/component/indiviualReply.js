@@ -17,7 +17,7 @@ function IndividualReply(props) {
     return (
         <>
         {!edit && <div className='IndividualReply'>
-                <img className="profileImg" src={data.profileImg}/>
+                <img className="profileImg" alt="profileIcon" src={data.profileImg}/>
                 <div className="info">
                     <div className="topicCommentHeader">
                         <p><strong>{data.firstName} {data.lastName}</strong></p>
