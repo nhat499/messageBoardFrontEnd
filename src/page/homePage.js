@@ -9,6 +9,9 @@ import TopicTextAreaComponent from '../component/topicTextArea';
 import FadeIn from 'react-fade-in';
 import PageButton from '../component/pageButton';
 
+import {useSelector, useDispatch} from 'react-redux';
+import {getTopicStart} from '../rtksaga/state'
+
 function homePage (props) {
     const socket = props.socket;
     const [search, setSearch] = useState('');
@@ -16,41 +19,51 @@ function homePage (props) {
     const [totalPage, setTotalPage] =  useState(1);
     const {data, isLoading, error, refetch, isPreviousData} = useQuery(['allTopics',search, page], 
     ()=> fetchListOfTopics(search,page), {keepPreviousData:true});
-
-    socket.on('topicUpdated', () => {
-        refetch();
-    })
-
-    const [addNewTopic, setAddNewTopic] = useState(false);
-    useEffect(() =>{
-        refetch();
-    }, [search])
-
+    console.log(data);
+    /////////////////
+    const topics = useSelector(state=>state);
+    const dispatch = useDispatch();
     useEffect(() => {
-        if (data !== undefined) setTotalPage(Math.ceil((data.totalTopic) / 6));
-    }, [data])
+        dispatch(getTopicStart());
+    }, [dispatch])
+    console.log(topics);
+    /////////////////
+    // let data = [];
+    // if (!topics.isLoading) data = topics.topics.result
+    // socket.on('topicUpdated', () => {
+    //     //refetch();
+    // })
 
-    if (isLoading) return 'is loading...';
-    else if (error) return 'error: ' + error.message;
-    else {
-        const pagesArray = Array(totalPage).fill().map((_, index) => index + 1);
-        return (
-            <div className='homePage'>
-                <HomePageHeader setSearch={setSearch} user={data.user} setAddNewTopic={setAddNewTopic}/>
-                <TopicTextAreaComponent socket={socket} isNotHidden={addNewTopic} setAddNewTopic={setAddNewTopic} refetch={refetch}/>
-                <FadeIn className='TopicContainer'>
+    // const [addNewTopic, setAddNewTopic] = useState(false);
+    // useEffect(() =>{
+    //     //refetch();
+    // }, [search])
+
+    // useEffect(() => {
+    //     if (data !== undefined) setTotalPage(Math.ceil((data.totalTopic) / 6));
+    // }, [data])
+
+    // // if (isLoading) return 'is loading...';
+    // // else if (error) return 'error: ' + error.message;
+    // // else {
+    //     const pagesArray = Array(totalPage).fill().map((_, index) => index + 1);
+    //     return (
+    //         <div className='homePage'>
+    //             <HomePageHeader setSearch={setSearch} user={data.user} setAddNewTopic={setAddNewTopic}/>
+    //             <TopicTextAreaComponent socket={socket} isNotHidden={addNewTopic} setAddNewTopic={setAddNewTopic} /*refetch={refetch}*//>
+    //             <FadeIn className='TopicContainer'>
                     
-                    {data.result.map((eachData) => (
-                            <IndiviualTopic socket={socket} key={eachData.topicId} data={eachData} allTopicRefetch={refetch}/>
-                    ))}
+    //                 {data.result.map((eachData) => (
+    //                         <IndiviualTopic socket={socket} key={eachData.topicId} data={eachData} /*allTopicRefetch={refetch}*//>
+    //                 ))}
                 
-                <nav>
-                    {pagesArray.map(pg=> <PageButton key={pg} disabled={page===pg} pg={pg} setPage={setPage} isPreviousData={isPreviousData} />)}
-                </nav>
-                </FadeIn>
-            </div>
-        )
-    }
+    //             {/* <nav>
+    //                 {pagesArray.map(pg=> <PageButton key={pg} disabled={page===pg} pg={pg} setPage={setPage} isPreviousData={isPreviousData} />)}
+    //             </nav> */}
+    //             </FadeIn>
+    //         </div>
+    //     )
+    // //}
 }
 
 

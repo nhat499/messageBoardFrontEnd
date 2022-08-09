@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
 // // ACTION
@@ -40,14 +39,22 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 // store.dispatch(increment());
 
 //import {createStore} from 'redux';
-import { configureStore } from '@reduxjs/toolkit';
-import allReducer from './reducers';
 import { Provider } from 'react-redux';
-//const store = createStore(allReducer);
-const store = configureStore({
-  reducer:allReducer
+import createSagaMiddleware from 'redux-saga'
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import topicsSliceReducer from './rtksaga/state'
+import { getTopicSaga } from './rtksaga/saga';
+
+const reducers = combineReducers({
+  topics: topicsSliceReducer,
 })
 
+const saga = createSagaMiddleware();
+const store = configureStore({
+  reducer: reducers,
+  middleware: [saga]
+})
+saga.run(getTopicSaga);
 
 const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -58,8 +65,3 @@ root.render(
     </Provider>
   </QueryClientProvider>
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
