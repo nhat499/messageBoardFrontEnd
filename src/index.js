@@ -42,7 +42,7 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga'
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import topicsSliceReducer from './rtksaga/state'
+import topicsSliceReducer from './rtksaga/slicesReducerAction/getTopic'
 import { getTopicSaga } from './rtksaga/saga';
 
 const reducers = combineReducers({

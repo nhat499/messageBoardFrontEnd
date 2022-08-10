@@ -1,10 +1,10 @@
 import {createSlice} from '@reduxjs/toolkit';
-
+// reducer/action
 const topicsSlice = createSlice({
     name:'topics',
     initialState: {
         topics:[],
-        isLoading: false
+        isLoading: true
     },
     reducers: {
         getTopicStart: (state) => {

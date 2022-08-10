@@ -1,10 +1,9 @@
 import {call, put, takeLatest} from 'redux-saga/effects';
-import { getTopicFinish } from './state';
+import { getTopicFinish } from './slicesReducerAction/getTopic';
 import { fetchListOfTopics } from '../queries/fetchQueries';
 
-function* workGetTopic() {
-    let topics = yield call(() => fetchListOfTopics("", 1));
-    console.log(topics);
+function* workGetTopic(action) {
+    let topics = yield call(() => fetchListOfTopics(action.payload.search, action.payload.page));
     yield put(getTopicFinish(topics));
 }
 

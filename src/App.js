@@ -11,7 +11,6 @@ import HomePage from './page/homePage.js';
 import {SignInPage} from './page/signInPage.js';
 import io from 'socket.io-client';
 import {SERVER_URL, DEV_MODE} from './util/variables.js';
-import {useSelector, useDispatch} from 'react-redux';
 // const socket = io.connect(SERVER_URL,{path: '/api/socket.io',transports: ['websocket']});
 
 console.log("dev mode: ", DEV_MODE);

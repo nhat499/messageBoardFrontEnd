@@ -10,60 +10,56 @@ import FadeIn from 'react-fade-in';
 import PageButton from '../component/pageButton';
 
 import {useSelector, useDispatch} from 'react-redux';
-import {getTopicStart} from '../rtksaga/state'
+import {getTopicStart} from '../rtksaga/slicesReducerAction/getTopic'
 
 function homePage (props) {
     const socket = props.socket;
     const [search, setSearch] = useState('');
     const [page, setPage] = useState(1);
-    const [totalPage, setTotalPage] =  useState(1);
-    const {data, isLoading, error, refetch, isPreviousData} = useQuery(['allTopics',search, page], 
-    ()=> fetchListOfTopics(search,page), {keepPreviousData:true});
-    console.log(data);
-    /////////////////
-    const topics = useSelector(state=>state);
+    const [addNewTopic, setAddNewTopic] = useState(false);
+
+    const topics = useSelector(state=>state.topics);
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getTopicStart());
-    }, [dispatch])
-    console.log(topics);
-    /////////////////
-    // let data = [];
-    // if (!topics.isLoading) data = topics.topics.result
-    // socket.on('topicUpdated', () => {
-    //     //refetch();
-    // })
+        dispatch(getTopicStart({search: search, page: page}));
+    }, [search, page])
 
-    // const [addNewTopic, setAddNewTopic] = useState(false);
-    // useEffect(() =>{
-    //     //refetch();
-    // }, [search])
+    socket.on('topicUpdated', () => {
+        dispatch(getTopicStart({search: search, page: page}));
+    })
 
-    // useEffect(() => {
-    //     if (data !== undefined) setTotalPage(Math.ceil((data.totalTopic) / 6));
-    // }, [data])
-
-    // // if (isLoading) return 'is loading...';
-    // // else if (error) return 'error: ' + error.message;
-    // // else {
-    //     const pagesArray = Array(totalPage).fill().map((_, index) => index + 1);
-    //     return (
-    //         <div className='homePage'>
-    //             <HomePageHeader setSearch={setSearch} user={data.user} setAddNewTopic={setAddNewTopic}/>
-    //             <TopicTextAreaComponent socket={socket} isNotHidden={addNewTopic} setAddNewTopic={setAddNewTopic} /*refetch={refetch}*//>
-    //             <FadeIn className='TopicContainer'>
-                    
-    //                 {data.result.map((eachData) => (
-    //                         <IndiviualTopic socket={socket} key={eachData.topicId} data={eachData} /*allTopicRefetch={refetch}*//>
-    //                 ))}
+    let pagesArray;
+    if (topics.topics.totalTopic) {
+        pagesArray = Array(Math.ceil(
+            (topics.topics.totalTopic) / 6))
+            .fill()
+            .map((_, index) => index + 1);
+    }
+    return (
+        <div className='homePage'>
+            <HomePageHeader 
+                setSearch={setSearch} 
+                user={topics.topics.user} 
+                setAddNewTopic={setAddNewTopic}/>
+            <TopicTextAreaComponent 
+                socket={socket} 
+                isNotHidden={addNewTopic}
+                setAddNewTopic={setAddNewTopic} /*refetch={refetch}*//>
+            <FadeIn className='TopicContainer'>
                 
-    //             {/* <nav>
-    //                 {pagesArray.map(pg=> <PageButton key={pg} disabled={page===pg} pg={pg} setPage={setPage} isPreviousData={isPreviousData} />)}
-    //             </nav> */}
-    //             </FadeIn>
-    //         </div>
-    //     )
-    // //}
+                {topics.topics.result && topics.topics.result.map((eachData) => (
+                        <IndiviualTopic 
+                            socket={socket} 
+                            key={eachData.topicId} 
+                            data={eachData} /*allTopicRefetch={refetch}*//>
+                ))}
+            <nav>
+                {pagesArray && 
+                    pagesArray.map(pg=> <PageButton key={pg} disabled={page===pg} pg={pg} setPage={setPage}/>)}
+            </nav>
+            </FadeIn>
+        </div>
+    )
 }
 
 
